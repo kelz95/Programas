@@ -26,6 +26,7 @@ public class Arreglos {
         
         
         
+        
         /*for(int i=0; i<20; i++)
         {
             arregloEntero[i]=i*3;
