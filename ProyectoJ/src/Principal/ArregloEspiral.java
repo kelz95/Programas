@@ -27,12 +27,31 @@ public class ArregloEspiral {
                 arregloEntero[y][10-(x+1)] = n;
                 n++;
             }
+            for(int y=10-(x+1); y>=(x+1); y--)
+            {
+                arregloEntero[10-(x+1)][y-1] = n;
+                n++;
+            }
+            for(int y=9-(x+1); y>=(x+1); y--)
+            {
+                arregloEntero[y][x] = n;
+                n++;
+            }
+            
         }
         /*for(int x=1; x<=5; x++)
         {
             for (int y=x; y<=10-x; y++)
             {
                 arregloEntero[y][10-x] = n;
+                n++;
+            }
+        }*/
+        /*for(int x=1; x<=5; x++)
+        {
+            for(int y=10-(x+1); y>=(x+1); y--)
+            {
+                arregloEntero[10-(x+1)][y-1] = n;
                 n++;
             }
         }*/
