@@ -10,42 +10,36 @@ package metodos;
  * @author Alumno
  */
 public class Metodos {
-
-    /**
-     * @param args the command line arguments
-     */
-    static int[][] arreglo = new int [10][10];
-    public static void main(String[] args) {
-        // TODO code application logic here 
-        int conta=1;
-        for(int i=0; i<=5; i++){
-            conta=metodo1(i, conta);
-            //conta=metodo2(i, conta);
-            //conta=metodo3(i, conta);
-            //conta=metodo4(i, conta); 
-        }
-        Imprime();
-    }
-
-    public static int metodo1(int x, int cont) {
-        
+    public int metodo1(int x, int cont) {
         for (int a=0+x; a<10-x; a++)
             {
-                arreglo[x][a] = cont;
+                MainP.arreglo[x][a] = cont;
                 cont++;     
             }
         return cont;
     }
-    
-    public static void Imprime(){
-        for(int i=0; i<10; i++)
-        {
-            for (int j=0; j<10; j++)
+    public int metodo2(int x, int cont) {
+        for (int a=1+x; a<9-x; a++)
             {
-            System.out.print("\t" + arreglo[i][j]);
+                MainP.arreglo[a][9-x] = cont;
+                cont++;     
             }
-        System.out.println("");
-        }
+        return cont;
     }
-    
+    public int metodo3(int x, int cont) {
+        for (int a=10-x; a>0+x; a--)
+            {
+                MainP.arreglo[10-(x+1)][a-1] = cont;
+                cont++;     
+            }
+        return cont;
+    }
+    public int metodo4(int x, int cont) {
+        for (int a=9-x; a>1+x; a--)
+            {
+                MainP.arreglo[a-1][x] = cont;
+                cont++;     
+            }
+        return cont;
+    }
 }
