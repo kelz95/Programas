@@ -12,25 +12,35 @@ package ejemplomain;
 public class ArregloEjemp {
     public static void main(String[] args) {
         char [][] tringulo2 = new char [10][10];
-         for(int x=0; x<10; x++)
+        //CON FOR
+        /*for(int x=0; x<10; x++)
            {
                for (int y=0; y<=x; y++)
-               {
-                   //System.out.print("\t *");
-                   tringulo2[x][y] = '*';
-                   //System.out.print("\t" + arregloEntero[x][y]);
-                   //System.out.print(x);
-                   //System.out.print(y); 
-               }
-               //System.out.println("");
-           }     
-           for(int i=0; i<10; i++)
-           {
-               for (int j=0; j<10; j++)
-               {
-                   System.out.print("\t" + tringulo2[i][j]);
-               }
-               System.out.println("");
-           }
+               {                  
+                   tringulo2[x][y] = '*';    
+               }          
+           }*/
+        
+        //CON WHILE
+        int x=0;
+        while(x<10)
+        {
+            int y=0;
+            while(y<=x)
+            {
+               tringulo2[x][y] = '*';
+               y++;                   
+            }
+            x++;
+        }
+        
+        for(int i=0; i<10; i++)
+        {
+            for (int j=0; j<10; j++)
+            {
+                System.out.print("\t" + tringulo2[i][j]);
+            }
+            System.out.println("");
+        }         
      }
 }
