@@ -18,8 +18,7 @@ public class ArregloEspiral {
             for (int y=x; y<=9-x; y++)
             {
                 arregloEntero[x][y] = n;
-                n++;
-                
+                n++;     
             }
             
             for (int y=x+1; y<=10-(x+1); y++)
