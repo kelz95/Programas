@@ -11,7 +11,7 @@ package metodos;
  */
 public class Metodos {
     public int metodo1(int x, int cont) {
-        for (int a=0+x; a<10-x; a++)
+        for (int a=0+x; a<=9-x; a++)
             {
                 MainP.arreglo[x][a] = cont;
                 cont++;     
