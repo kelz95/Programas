@@ -14,19 +14,17 @@ public class MainP {
     /**
      * @param args the command line arguments
      */
-    static int[][] arreglo = new int [10][10];
     public static void main(String[] args) {
         // TODO code application logic here 
         int conta=1;
         Metodos met1 = new Metodos();
-        Imprimir imp = new Imprimir();
         for(int i=0; i<=5; i++){
             conta = met1.metodo1(i, conta);
             conta = met1.metodo2(i, conta);
             conta = met1.metodo3(i, conta);
             conta = met1.metodo4(i, conta); 
         }
-        imp.Imprime();
+        met1.Imprime();
     }
 
     /*public static int metodo1(int x, int cont) {
