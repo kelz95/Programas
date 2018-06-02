@@ -27,17 +27,17 @@ public class Metodos {
         return cont;
     }
     public int metodo3(int x, int cont) {
-        for (int a=10-x; a>0+x; a--)
+        for (int a=9-x; a>=0+x; a--)
             {
-                MainP.arreglo[10-(x+1)][a-1] = cont;
+                MainP.arreglo[9 - x][a] = cont;
                 cont++;     
             }
         return cont;
     }
     public int metodo4(int x, int cont) {
-        for (int a=9-x; a>1+x; a--)
+        for (int a=8-x; a>x; a--)
             {
-                MainP.arreglo[a-1][x] = cont;
+                MainP.arreglo[a][x] = cont;
                 cont++;     
             }
         return cont;

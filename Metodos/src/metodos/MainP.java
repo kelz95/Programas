@@ -21,10 +21,10 @@ public class MainP {
         Metodos met1 = new Metodos();
         Imprimir imp = new Imprimir();
         for(int i=0; i<=5; i++){
-            conta=met1.metodo1(i, conta);
-            conta=met1.metodo2(i, conta);
-            conta=met1.metodo3(i, conta);
-            conta=met1.metodo4(i, conta); 
+            conta = met1.metodo1(i, conta);
+            conta = met1.metodo2(i, conta);
+            conta = met1.metodo3(i, conta);
+            conta = met1.metodo4(i, conta); 
         }
         imp.Imprime();
     }
