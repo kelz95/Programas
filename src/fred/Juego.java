@@ -20,7 +20,8 @@ public class Juego extends javax.swing.JFrame {
      ArrayList<Integer> lista = new ArrayList<Integer>();
         int puntos = 0; 
         int siguiente = 0;
-        int tiempo = 500;
+        int tiempo = 600;
+        int puntosRes = 0;
     /**
      * Creates new form Juego
      */
@@ -38,7 +39,7 @@ public class Juego extends javax.swing.JFrame {
         jButton10.setBackground(Color.black);
         jButton11.setBackground(Color.black);
         jButton12.setBackground(Color.black);
-        
+        bRepetir.setEnabled(false);
        
         bIniciar.addActionListener(new ActionListener()
         {
@@ -51,10 +52,12 @@ public class Juego extends javax.swing.JFrame {
                     {
                         try
                         {
+                            bRepetir.setEnabled(true);
                             puntos = 0;
                             siguiente = 0;
+                            tiempo = 600;
                             int numAleatorio = (int) (Math.random()*12+1);
-                            lista.removeAll(lista);
+                            lista.clear();
                             lista.add(numAleatorio);
                             String p = Integer.toString(puntos);
                             jTextField1.setText(p);
@@ -166,21 +169,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton1.setBackground(Color.BLUE);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton1.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -243,6 +248,7 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.BLACK);
                                             break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
@@ -251,6 +257,9 @@ public class Juego extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
                                 puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -295,21 +304,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton2.setBackground(Color.RED);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton2.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -370,8 +381,9 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                              
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
@@ -380,6 +392,9 @@ public class Juego extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
                                 puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -424,21 +439,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton3.setBackground(Color.GREEN);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton3.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -499,16 +516,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -559,85 +580,91 @@ public class Juego extends javax.swing.JFrame {
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
-                                        case 0: 
+                                        case 1: 
                                             jButton1.setBackground(Color.BLUE);
                                             Thread.sleep(tiempo);
                                             jButton1.setBackground(Color.BLACK);
                                             break;
-                                        case 1: 
+                                        case 2: 
                                             jButton2.setBackground(Color.RED);
                                             Thread.sleep(tiempo);
                                             jButton2.setBackground(Color.BLACK);
                                             break;
-                                        case 2: 
+                                        case 3: 
                                             jButton3.setBackground(Color.GREEN);
                                             Thread.sleep(tiempo);
                                             jButton3.setBackground(Color.BLACK);
                                             break;
-                                        case 3: 
+                                        case 4: 
                                             jButton4.setBackground(Color.CYAN);
                                             Thread.sleep(tiempo);
                                             jButton4.setBackground(Color.BLACK);
                                             break;
-                                        case 4: 
+                                        case 5: 
                                             jButton5.setBackground(Color.LIGHT_GRAY);
                                             Thread.sleep(tiempo);
                                             jButton5.setBackground(Color.BLACK);
                                             break;
-                                        case 5: 
+                                        case 6: 
                                             jButton6.setBackground(Color.YELLOW);
                                             Thread.sleep(tiempo);
                                             jButton6.setBackground(Color.BLACK);
                                             break;
-                                        case 6: 
+                                        case 7: 
                                             jButton7.setBackground(Color.MAGENTA);
                                             Thread.sleep(tiempo);
                                             jButton7.setBackground(Color.BLACK);
                                             break;
-                                        case 7: 
+                                        case 8: 
                                             jButton8.setBackground(Color.ORANGE);
                                             Thread.sleep(tiempo);
                                             jButton8.setBackground(Color.BLACK);
                                             break;
-                                        case 8: 
+                                        case 9: 
                                             jButton9.setBackground(Color.pink);
                                             Thread.sleep(tiempo);
                                             jButton9.setBackground(Color.BLACK);
                                             break;
-                                        case 9: 
+                                        case 10: 
                                             jButton10.setBackground(Color.WHITE);
                                             Thread.sleep(tiempo);
                                             jButton10.setBackground(Color.BLACK);
                                             break;
-                                        case 10: 
+                                        case 11: 
                                             jButton11.setBackground(Color.darkGray);
                                             Thread.sleep(tiempo);
                                             jButton11.setBackground(Color.BLACK);
                                             break;
-                                        case 11: 
+                                        case 12: 
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
-                               
+                                
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -682,21 +709,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton5.setBackground(Color.LIGHT_GRAY);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton5.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -757,16 +786,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
-                               
+                                
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -811,21 +844,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton6.setBackground(Color.YELLOW);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton6.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -886,16 +921,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -940,21 +979,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton7.setBackground(Color.MAGENTA);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton7.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -1015,16 +1056,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
-                               
+                                
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -1069,21 +1114,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton8.setBackground(Color.ORANGE);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton8.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -1144,16 +1191,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -1198,21 +1249,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton9.setBackground(Color.pink);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton9.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -1273,16 +1326,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                              
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
-                               
+                                
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -1327,21 +1384,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton10.setBackground(Color.WHITE);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton10.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -1402,16 +1461,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -1456,21 +1519,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton11.setBackground(Color.darkGray);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton11.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -1531,16 +1596,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
                                 
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -1585,21 +1654,23 @@ public class Juego extends javax.swing.JFrame {
                                     tiempo = tiempo - 30;
                                 }
                                 jButton12.setBackground(Color.GRAY);
-                                Thread.sleep(tiempo);
+                                Thread.sleep(75);
                                 jButton12.setBackground(Color.BLACK);
                                 
                                 String p = Integer.toString(puntos);
                                 jTextField1.setText(p);
 
-                                if(siguiente < lista.size()) //para saber si podemos agregar otro elemento
+                                if(siguiente < lista.size() - 1) //para saber si podemos agregar otro elemento
                                 {
                                     siguiente++;
+                                    bRepetir.setEnabled(false);
                                 }
                                 else
                                 {
+                                    siguiente = 0;
                                     int numAleatorio = (int) (Math.random()*12+1);
                                     lista.add(numAleatorio);
-                                    switch(lista.get(siguiente))
+                                    switch(numAleatorio)
                                     {
                                         case 1: 
                                             jButton1.setBackground(Color.BLUE);
@@ -1660,16 +1731,20 @@ public class Juego extends javax.swing.JFrame {
                                             jButton12.setBackground(Color.GRAY);
                                             Thread.sleep(tiempo);
                                             jButton12.setBackground(Color.BLACK);
-                                            break;                                                               
+                                            break;                                                             
                                     }
+                                    bRepetir.setEnabled(true);
                                 }
-                               
+                                
                             }
                             else
                             {
                                 JOptionPane.showMessageDialog(null,"Te has equivocado, intenta de nuevo");
-                                 puntos = 0;
+                                puntos = 0;
                                 lista.removeAll(lista);
+                                String p = "HAS PERDIDO";
+                                jTextField1.setText(p);
+                                bRepetir.setEnabled(false);
                             }
                         }     
                         catch(InterruptedException ex)
@@ -1699,6 +1774,18 @@ public class Juego extends javax.swing.JFrame {
                     {
                         try
                         {
+                            if(puntos <= 0)
+                            {
+                                puntos = 0;
+                            }
+                            else
+                            {
+                                puntosRes = puntos / 4;
+                                puntos = puntos - puntosRes;
+                            }
+                             String p = Integer.toString(puntos);
+                             jTextField1.setText(p);
+                                
                             for(int i = 0; i<lista.size(); i++){
                                     switch(lista.get(i))
                                     {
