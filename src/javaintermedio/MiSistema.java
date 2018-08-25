@@ -15,7 +15,14 @@ public class MiSistema {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Persona p = new Persona();
+        Persona r = new Persona("Alex", "Botella", null, 'M');
+        Cliente c = new Cliente("01", null, "Pancho", "Reyes", null, 'M');
+        //p.setNombre("Alex");
+
+        System.out.println(r);
+        System.out.println(c);
+    
     }
     
 }
