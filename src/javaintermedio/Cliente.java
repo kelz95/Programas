@@ -12,31 +12,44 @@ import java.util.Calendar;
  * @author alumno
  */
 public class Cliente extends Persona{
-    private String noCliente;
-    private Domicilio domicilio;
+    public static String noCliente;
+    //private Domicilio domicilio;
 
-    public Cliente(String noCliente, Domicilio domicilio, String nombre, String apellido, Calendar fechaNacimiento, char genero) {
+    public Cliente(String noCliente, String nombre, String apellido, Calendar fechaNacimiento, char genero) {
         super(nombre, apellido, fechaNacimiento, genero);
-        this.noCliente = noCliente;
-        this.domicilio = domicilio;
+        this.noCliente = noCliente;       
+    }
+    
+    public class Domicilio{
+        String calle;
+        int noExt;
+        String colonia;
+        String delegacion;
+
+        public Domicilio(String calle, int noExt, String colonia, String delegacion) {
+            this.calle = calle;
+            this.noExt = noExt;
+            this.colonia = colonia;
+            this.delegacion = delegacion;
+        }
+
+        @Override
+        public String toString() {
+            return "Domicilio{" + "calle=" + calle + ", noExt=" + noExt + ", colonia=" + colonia + ", delegacion=" + delegacion + '}';
+        }
+        
+        
+        
     }
 
     public String getNoCliente() {
-        return noCliente;
-    }
-
-    public Domicilio getDomicilio() {
-        return domicilio;
+        return this.noCliente;
     }
 
     public void setNoCliente(String noCliente) {
         this.noCliente = noCliente;
     }
 
-    public void setDomicilio(Domicilio domicilio) {
-        this.domicilio = domicilio;
-    }
-    
     @Override
     String muestraDatos(){
         return this.noCliente + " " + this.getGenero();
@@ -44,7 +57,7 @@ public class Cliente extends Persona{
 
     @Override
     public String toString() {
-        return super.toString() + "Cliente{" + "noCliente=" + noCliente + ", domicilio=" + domicilio + '}';
+        return super.toString() + "Cliente{" + "noCliente=" + noCliente + '}';
     }
     
     

@@ -11,7 +11,7 @@ import java.util.Calendar;
  *
  * @author abi-r
  */
-public class Servicio {
+public abstract class Servicio {
     private Calendar fechaCont;
 
     public Servicio(Calendar fechaCont) {
@@ -22,6 +22,10 @@ public class Servicio {
         this.fechaCont = null;
     }
 
+    public String muestraDescripccion(){
+        return "hola";
+    }
+    
     public Calendar getFechaCont() {
         return fechaCont;
     }

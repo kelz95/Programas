@@ -6,6 +6,7 @@
 package javaintermedio;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -32,7 +33,15 @@ public class Persona {
     }
     
     int calculaEdad(){
-        return 0;
+        int a = this.fechaNacimiento.get(Calendar.YEAR);
+        int aa = new GregorianCalendar().get(Calendar.YEAR);
+        return aa - a;
+    }
+    
+     int calculaEdad(Calendar cal){
+        int a = this.fechaNacimiento.get(Calendar.YEAR);
+        int aa = new GregorianCalendar().get(Calendar.YEAR);
+        return aa - a;
     }
     
     String muestraDatos(){
@@ -73,7 +82,8 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + '}';
+        //Utilerias u = new Utilerias();
+        return "Persona{" + "nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + Utilerias.convierteFecha(fechaNacimiento) + ", genero=" + genero + '}';
     }
     
     
