@@ -13,13 +13,16 @@ import java.util.Calendar;
  */
 public abstract class Servicio {
     private Calendar fechaCont;
+    private int IdServicio;
 
-    public Servicio(Calendar fechaCont) {
+    public Servicio(int IdServicio, Calendar fechaCont) {
         this.fechaCont = fechaCont;
+        this.IdServicio = IdServicio;
     }
 
     public Servicio() {
         this.fechaCont = null;
+        this.IdServicio = 0;
     }
 
     public String muestraDescripccion(){
@@ -34,8 +37,18 @@ public abstract class Servicio {
         this.fechaCont = fechaCont;
     }
 
+    public int getIdServicio() {
+        return IdServicio;
+    }
+
+    public void setIdServicio(int IdServicio) {
+        this.IdServicio = IdServicio;
+    }
+
     @Override
     public String toString() {
-        return "Servicio{" + "fechaCont= " + fechaCont + '}';
+        return "Servicio{" + "fechaCont=" + Utilerias.convierteFecha(fechaCont) + ", IdServicio=" + IdServicio + '}';
     }
+    
+
 }

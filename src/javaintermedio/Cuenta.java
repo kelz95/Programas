@@ -14,8 +14,8 @@ import java.util.Calendar;
 public class Cuenta extends Servicio{
     private int noCuenta;
 
-    public Cuenta(int noCuenta, Calendar fechaCont) {
-        super(fechaCont);
+    public Cuenta(int noCuenta, int IdServicio, Calendar fechaCont) {
+        super(IdServicio, fechaCont);
         this.noCuenta = noCuenta;
     }
 

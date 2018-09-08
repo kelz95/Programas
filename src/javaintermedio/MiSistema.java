@@ -29,7 +29,34 @@ public class MiSistema {
         System.out.println(c + " - > " + dom);
     
         //Servicio s = new Servicio(cal);
-        Prestamo pr = new Prestamo(3000F,cal, cal);
+        Prestamo pr1 = new Prestamo(3000F, cal, 1, cal);
+        Prestamo pr2 = new Prestamo(4000F, cal, 2, cal);
+        Prestamo pr3 = new Prestamo(5000F, cal, 3, cal);
+        Prestamo pr4 = new Prestamo(6000F, cal, 4, cal);
+        Prestamo pr5 = new Prestamo(7000F, cal, 5, cal);
+        Prestamos prs = PrestamosFactory.createPrestamos();
+        prs.agregar(pr1);
+        prs.agregar(pr2);
+        prs.agregar(pr3);
+        prs.agregar(pr4);
+        prs .agregar(pr5);
+        System.out.println("Contenidos: \n" + prs.listado());
+        PrestamoGen prs2 = PrestamosFactory.createPrestamoGen();
+        prs2.agregar(pr1);
+        System.out.println("Contenidos2: \n" + prs.listado());     
+        
+        Traspaso t1 = new Traspaso ("pancho", 1000, 6, cal);
+        Traspaso t2 = new Traspaso ("laura", 1000, 8, cal);
+        Traspaso t3 = new Traspaso ("paty", 1000, 9, cal);
+        Traspasos trs = new Traspasos();
+        trs.agregar(t1);
+        trs.agregar(t2);
+        trs.agregar(t3);
+        System.out.println("Contenido: \n" + trs.listado());
+        trs.agregar(t1);
+        System.out.println("Contenido: \n" + trs.listado());        
+        
+        
     }
     
 }

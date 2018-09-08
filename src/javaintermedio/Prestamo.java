@@ -15,8 +15,8 @@ public class Prestamo extends Servicio{
     private float monto;
     private Calendar vigencia;
 
-    public Prestamo(float monto, Calendar vigencia, Calendar fechaCont) {
-        super(fechaCont);
+    public Prestamo(float monto, Calendar vigencia, int IdServicio, Calendar fechaCont) {
+        super(IdServicio, fechaCont);
         this.monto = monto;
         this.vigencia = vigencia;
     }
@@ -48,9 +48,6 @@ public class Prestamo extends Servicio{
 
     @Override
     public String toString() {
-        return super.toString() + "Prestamo{" + "monto=" + monto + ", vigencia=" + vigencia + '}';
+        return super.toString() + "Prestamo{" + "monto=" + monto + ", vigencia=" + Utilerias.convierteFecha(vigencia) + '}';
     }
-
-    
-    
 }

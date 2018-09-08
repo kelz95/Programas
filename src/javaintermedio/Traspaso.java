@@ -11,12 +11,12 @@ import java.util.Calendar;
  *
  * @author abi-r
  */
-public class Traspaso extends Servicio{
+public class Traspaso extends Servicio implements Comparable{
     private String destino;
     private float monto;
 
-    public Traspaso(String destino, float monto, Calendar fechaCont) {
-        super(fechaCont);
+    public Traspaso(String destino, float monto, int IdServicio, Calendar fechaCont) {
+        super(IdServicio, fechaCont);
         this.destino = destino;
         this.monto = monto;
     }
@@ -45,6 +45,18 @@ public class Traspaso extends Servicio{
     @Override
     public String toString() {
         return super.toString() + "Traspaso{" + "destino=" + destino + ", monto=" + monto + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Traspaso ext = (Traspaso)o;
+        if(ext.getIdServicio() == this.getIdServicio()){
+            return 0;
+        }else if(ext.getIdServicio()>this.getIdServicio()){
+            return -1;
+        }else{
+            return 1;
+        }
     }
     
 }
