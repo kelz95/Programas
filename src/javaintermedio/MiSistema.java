@@ -56,7 +56,17 @@ public class MiSistema {
         trs.agregar(t1);
         System.out.println("Contenido: \n" + trs.listado());        
         
+        Cuenta c1 = new Cuenta(1111,20,new GregorianCalendar(2017,7,3));
+        Cuenta c2 = new Cuenta(2222,30,new GregorianCalendar(2018,3,3));
+        Cuenta c3 = new Cuenta(3333,20,new GregorianCalendar(2017,6,1));
+        Cuentas cs = new Cuentas();
+        cs.agrega(c1.getNoCuenta(), c1);
+        cs.agrega(c2.getNoCuenta(), c2);
+        cs.agrega(c3.getNoCuenta(), c3);
+        System.out.println("Elementos: \n" +  cs.listado());
         
+        Utilerias.guardaArchivoTexto(cs.listado(), "prueba.txt");     
+        System.out.println(Utilerias.leerArchivoTexto("prueba.txt"));
     }
-    
+
 }
