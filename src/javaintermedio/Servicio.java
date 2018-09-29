@@ -5,13 +5,14 @@
  */
 package javaintermedio;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author abi-r
  */
-public abstract class Servicio {
+public abstract class Servicio implements Serializable{
     private Calendar fechaCont;
     private int IdServicio;
 

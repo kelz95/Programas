@@ -5,6 +5,12 @@
  */
 package javaintermedio;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -117,4 +123,49 @@ public class Prestamos implements Almacenamiento{
        }
        return sb.toString();
     }
+    
+    public boolean guardaArchivo(String arch){
+        FileOutputStream f = null;
+        ObjectOutputStream ob = null;
+        try{
+                f = new FileOutputStream(arch);
+                ob = new ObjectOutputStream(f);
+                for(Object object : lista){
+                        Prestamo p = (Prestamo) object;
+                        ob.writeObject(p);
+                }
+                return true;
+         }catch(FileNotFoundException file){
+             
+         }catch(IOException ex){
+
+         }finally{
+                try{
+                        ob.flush();
+                        ob.close();
+                        f.flush();
+                        f.close();
+                        
+                }catch(IOException ex){
+
+                }
+         }
+        return false;
+    }
+    
+    public boolean abreArchivo(String arch){
+        try(FileInputStream f = new FileInputStream(arch); ObjectInputStream ob = new ObjectInputStream(f)){   
+            Object p = ob.readObject();
+            System.out.println("Objecto ->" + p);
+                while(p != null){
+                    lista.add(p);
+                    p = ob.readObject();
+                }
+                return true;
+         }catch(ClassNotFoundException | IOException ex){
+            ex.printStackTrace();
+         }
+        return false;
+    }
+    
 }

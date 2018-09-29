@@ -5,15 +5,17 @@
  */
 package javaintermedio;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author abi-r
  */
-public class Prestamo extends Servicio{
+public class Prestamo extends Servicio implements Serializable{
     private float monto;
     private Calendar vigencia;
+    private static long serialVersionUID = 4200L;
 
     public Prestamo(float monto, Calendar vigencia, int IdServicio, Calendar fechaCont) {
         super(IdServicio, fechaCont);

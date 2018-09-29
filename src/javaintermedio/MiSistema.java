@@ -35,17 +35,19 @@ public class MiSistema {
         Prestamo pr4 = new Prestamo(6000F, cal, 4, cal);
         Prestamo pr5 = new Prestamo(7000F, cal, 5, cal);
         Prestamos prs = PrestamosFactory.createPrestamos();
-        prs.agregar(pr1);
+        /*prs.agregar(pr1);
         prs.agregar(pr2);
         prs.agregar(pr3);
         prs.agregar(pr4);
-        prs .agregar(pr5);
-        System.out.println("Contenidos: \n" + prs.listado());
-        PrestamoGen prs2 = PrestamosFactory.createPrestamoGen();
-        prs2.agregar(pr1);
-        System.out.println("Contenidos2: \n" + prs.listado());     
+        prs .agregar(pr5);*/
+        //System.out.println("Contenidos: \n" + prs.listado());
+        //prs.guardaArchivo("prestamos.dat");
+        //prs.abreArchivo("prestamos.dat");
+        //System.out.println("Contenidos: \n" + prs.listado()); 
         
-        Traspaso t1 = new Traspaso ("pancho", 1000, 6, cal);
+        //PrestamoGen prs2 = PrestamosFactory.createPrestamoGen();
+        //prs2.agregar(pr1);
+        /*Traspaso t1 = new Traspaso ("pancho", 1000, 6, cal);
         Traspaso t2 = new Traspaso ("laura", 1000, 8, cal);
         Traspaso t3 = new Traspaso ("paty", 1000, 9, cal);
         Traspasos trs = new Traspasos();
@@ -60,15 +62,22 @@ public class MiSistema {
         Cuenta c2 = new Cuenta(2222,30,new GregorianCalendar(2018,3,3));
         Cuenta c3 = new Cuenta(3333,20,new GregorianCalendar(2017,6,1));
         Cuentas cs = new Cuentas();
-        /*cs.agrega(c1.getNoCuenta(), c1);
+        cs.agrega(c1.getNoCuenta(), c1);
         cs.agrega(c2.getNoCuenta(), c2);
-        cs.agrega(c3.getNoCuenta(), c3);*/
+        cs.agrega(c3.getNoCuenta(), c3);
         System.out.println("Elementos: \n" +  cs.listado());
         
-        //Utilerias.guardaArchivoTexto(cs.listado(), "prueba.txt");     
+        Utilerias.guardaArchivoTexto(cs.listado(), "prueba.txt");     
         System.out.println(Utilerias.leerArchivoTexto("prueba.txt"));
         cs.llenaCuentas(Utilerias.leerArchivoTexto("prueba.txt"));
-        System.out.println("Elementos: \n" +  cs.listado());
+        System.out.println("Elementos: \n" +  cs.listado());*/
+        BaseDatos bd = new BaseDatos();
+        String url = "jdbc:derby://localhost:1527/Bancario";
+        String user = "banco";
+        String password = "banco";               
+        bd.conexion(url, user, password);       
+        String query = "select * from cliente";      
+        System.out.println(bd.salidaCSV(bd.consulta(query)));
     }
 
 }
