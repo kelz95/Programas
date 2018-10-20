@@ -43,24 +43,44 @@ public class BaseDatos {
             }
             
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public int actualiza(String sentencia){
+        int result = -1;
+        try {
+            Statement st = con.createStatement();
+            result =st.executeUpdate(sentencia);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;     
     }
   
     public String salidaCSV(ResultSet rs){
         String salida = "";
         int columnas;
+        
         try {
             columnas = rs.getMetaData().getColumnCount();
+            for (int i = 1; i <= columnas; i++) {
+               salida += rs.getMetaData().getColumnName(i) + ", ";
+            }
+            salida = salida.substring(0, salida.length()-1) + '\n';
             while (rs.next()) {
                 for (int i = 1; i <= columnas; i++) {
                     String dato = rs.getString(i);
-                    salida = salida + dato + ",";
+                    salida = salida + dato + ", ";
                 }
                 salida = salida + "\n";
             }
         } catch (SQLException sQLException) {
+            sQLException.printStackTrace();
         }
         return salida;
     }

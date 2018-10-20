@@ -15,6 +15,7 @@ import java.util.Calendar;
 public class Prestamo extends Servicio implements Serializable{
     private float monto;
     private Calendar vigencia;
+    private Cliente c1;
     private static long serialVersionUID = 4200L;
 
     public Prestamo(float monto, Calendar vigencia, int IdServicio, Calendar fechaCont) {
@@ -30,6 +31,14 @@ public class Prestamo extends Servicio implements Serializable{
     
     float saldo(){
         return 0;
+    }
+
+    public Cliente getC1() {
+        return c1;
+    }
+
+    public void setC1(Cliente c1) {
+        this.c1 = c1;
     }
 
     public float getMonto() {

@@ -18,23 +18,23 @@ public class MiSistema {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Calendar cal = new GregorianCalendar();
-        Persona p = new Persona();
-        Persona r = new Persona("Alex", "Botella", cal, 'M');
-        Cliente c = new Cliente("01", "Pancho", "Reyes", cal, 'M');
-        Cliente.Domicilio dom;
-        dom = c.new Domicilio ("Granjas", 12, "Almoca", "Juarez");
-        //p.setNombre("Alex");
-        System.out.println(r);
-        System.out.println(c + " - > " + dom);
-    
-        //Servicio s = new Servicio(cal);
-        Prestamo pr1 = new Prestamo(3000F, cal, 1, cal);
-        Prestamo pr2 = new Prestamo(4000F, cal, 2, cal);
-        Prestamo pr3 = new Prestamo(5000F, cal, 3, cal);
-        Prestamo pr4 = new Prestamo(6000F, cal, 4, cal);
-        Prestamo pr5 = new Prestamo(7000F, cal, 5, cal);
-        Prestamos prs = PrestamosFactory.createPrestamos();
+//        Calendar cal = new GregorianCalendar();
+//        Persona p = new Persona();
+//        Persona r = new Persona("Alex", "Botella", cal, 'M');
+//        Cliente c = new Cliente("01", "Pancho", "Reyes", cal, 'M');
+//        Cliente.Domicilio dom;
+//        dom = c.new Domicilio ("Granjas", 12, "Almoca", "Juarez");
+//        //p.setNombre("Alex");
+//        System.out.println(r);
+//        System.out.println(c + " - > " + dom);
+//    
+//        //Servicio s = new Servicio(cal);
+//        Prestamo pr1 = new Prestamo(3000F, cal, 1, cal);
+//        Prestamo pr2 = new Prestamo(4000F, cal, 2, cal);
+//        Prestamo pr3 = new Prestamo(5000F, cal, 3, cal);
+//        Prestamo pr4 = new Prestamo(6000F, cal, 4, cal);
+//        Prestamo pr5 = new Prestamo(7000F, cal, 5, cal);
+//        Prestamos prs = PrestamosFactory.createPrestamos();
         /*prs.agregar(pr1);
         prs.agregar(pr2);
         prs.agregar(pr3);
@@ -72,11 +72,33 @@ public class MiSistema {
         cs.llenaCuentas(Utilerias.leerArchivoTexto("prueba.txt"));
         System.out.println("Elementos: \n" +  cs.listado());*/
         BaseDatos bd = new BaseDatos();
-        String url = "jdbc:derby://localhost:1527/Bancario";
-        String user = "banco";
-        String password = "banco";               
+        //String url = "jdbc:derby://localhost:1527/bBancario";
+        String url = "jdbc:mysql://localhost:3307/bancario";
+//        String user = "banco";
+//        String password = "banco";
+        String user = "root";
+        String password = "root";
         bd.conexion(url, user, password);       
-        String query = "select * from cliente";      
+        
+//        String cliente = "CREATE TABLE CLIENTE (\n" +
+//"    nocliente varchar(20) ,\n" +
+//"    nombre varchar(30) not null,\n" +
+//"    apellidos varchar(30) not null,\n" +
+//"    fechanac date not null,\n" +
+//"    genero char(1) not null check (genero ='M' or genero ='F'),\n" +
+//"\n" +
+//"    primary key (nocliente)\n" +
+//"\n" +
+//");";
+        //bd.actualiza(cliente);
+        String query = "select * from cliente";  
+        String f ="select * from prestamo";
+        System.out.println(bd.salidaCSV(bd.consulta(query)));
+       // String r = "insert into prestamo values (6, '2018-5-7', 6000.00, '2018-8-9', '1111')";
+        String g = "insert into cliente values ('1111', 'Juan', 'Perez', '1990-3-6', 'M');";
+        bd.actualiza(g);
+        System.out.println("renglones afectador -> " + g);
+        
         System.out.println(bd.salidaCSV(bd.consulta(query)));
     }
 

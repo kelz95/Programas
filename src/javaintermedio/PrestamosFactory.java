@@ -16,5 +16,8 @@ public abstract class PrestamosFactory {
      public static PrestamoGen createPrestamoGen(){
         return PrestamoGen.getInstance();
      }
+    public static PrestamoBD createPrestamosBD(String url, String user, String password){       
+        return new PrestamoBD(url, user, password);
+    }
     
 }
