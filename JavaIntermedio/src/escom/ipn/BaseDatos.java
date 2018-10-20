@@ -15,7 +15,7 @@ import java.sql.Statement;
  *
  * @author alumno
  */
-public class BaseDatos {
+public class BaseDatos implements Runnable{
     Connection con = null;
     
     public boolean conexion(String url, String user, String password){
@@ -83,5 +83,11 @@ public class BaseDatos {
     
     public void desconecta() throws SQLException{
         con.close();
+    }
+
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getId() +
+                " -> " + Thread.currentThread().getName());
     }
 }

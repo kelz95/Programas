@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class Prestamos implements Almacenamiento{
     private ArrayList lista = new ArrayList();
     private static final Prestamos INSTANCE = new Prestamos();
-
+    
     public static Prestamos getInstance(){
         return INSTANCE;
     }
@@ -37,7 +37,7 @@ public class Prestamos implements Almacenamiento{
     }
 
     @Override
-    public boolean elimina(int index) {
+    public synchronized boolean elimina(int index) {
         Object o = busqueda(index);
         if(o != null){
             lista.remove(o);
@@ -49,7 +49,7 @@ public class Prestamos implements Almacenamiento{
     }
 
     @Override
-    public boolean elimina(Object o) {
+    public synchronized boolean elimina(Object o) {
         return lista.remove(o);
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

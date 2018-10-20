@@ -9,6 +9,8 @@ import escom.ipn.Cliente.Domicilio;
 import java.io.Console;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,8 +20,9 @@ public class MiSistema {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.InterruptedException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Persona p = new Persona();
         //p.setNombre("Alex");
         System.out.println(p.getGenero());
@@ -121,6 +124,30 @@ public class MiSistema {
        // System.out.println("rengloes afcetados -> " + r);
         //String f = "select count(*) as res from prestamo";
  //       System.out.println(bd.salidaCSV(bd.consulta(c)));
+ 
+        PrestamosBD [] prest = new PrestamosBD[7];
+        for(int i = 0; i < 7; i++){
+            prest[i] = new PrestamosBD("jdbc:mysql://localhost:3307/bancario?zeroDateTimeBehavior=convertToNull","root","root");
+            prest[i].start();
+            if(i == 2){
+                prest[i].interrupt();
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                    Logger.getLogger(MiSistema.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        Thread [] bds = new Thread[7];
+        for(int i = 0; i < 7; i++){
+            BaseDatos bd = new BaseDatos();
+            Thread t = new Thread(bd); //para que el objeto bd se comporte como Thread
+            bds[i] = t;
+            bds[i].start();
+            bds[i].join();
+
+        }
     }
     
 }

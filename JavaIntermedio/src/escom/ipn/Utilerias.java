@@ -76,7 +76,8 @@ public class Utilerias {
         BufferedWriter buf = null;
         FileWriter file = null;
         try {
-            file = new FileWriter(ruta + separador + arch, true);
+            //file = new FileWriter(ruta + separador + arch, true);
+            file = new FileWriter(arch, true);
             buf = new BufferedWriter(file);
             buf.write(datos);
             buf.flush();

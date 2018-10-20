@@ -5,8 +5,10 @@
  */
 package escom.ipn;
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,10 +17,16 @@ import javax.swing.JOptionPane;
 public class Bancario extends javax.swing.JFrame {
     private ArrayList<Cliente> lista = new ArrayList<>();
     private int pointer = 0;
+    private DefaultTableModel modelo = null;
+    private PrestamosBD bd = new PrestamosBD("jdbc:mysql://localhost:3307/bancario?zeroDateTimeBehavior=convertToNull","root","root");
     /**
      * Creates new form Bancario
      */
     public Bancario() {
+        
+        Object[][] datos = bd.matriz();
+        String[] encabezado = {"IDcliente","IDPrestamo","Fecha Contratacion","Monto","Vigencia" };
+        modelo = new DefaultTableModel(datos, encabezado);
         initComponents();
     }
 
@@ -31,6 +39,7 @@ public class Bancario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -54,6 +63,8 @@ public class Bancario extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -162,6 +173,11 @@ public class Bancario extends javax.swing.JFrame {
         });
 
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Guardar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -282,15 +298,22 @@ public class Bancario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Clientes", jPanel1);
 
+        jTable1.setModel(modelo);
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Prestamos", jPanel2);
@@ -304,6 +327,11 @@ public class Bancario extends javax.swing.JFrame {
 
         saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Save");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setMnemonic('a');
@@ -384,6 +412,7 @@ public class Bancario extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
         String id = jTextField1.getText();
         String nom = jTextField2.getText();
         String apell = jTextField3.getText();
@@ -396,6 +425,11 @@ public class Bancario extends javax.swing.JFrame {
         "Cliente agregado", "Agregar", JOptionPane.INFORMATION_MESSAGE);
         jButton1.setEnabled(true);
         jButton3.setEnabled(false);
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -403,6 +437,11 @@ public class Bancario extends javax.swing.JFrame {
         deshabilita(true);
         jButton1.setEnabled(false);
         jButton3.setEnabled(true);
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -434,7 +473,7 @@ public class Bancario extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         if(pointer < lista.size()){
-            Cliente c = lista.get(pointer);
+            Cliente c = lista.get(pointer++);
             if (c != null) {
                 jTextField1.setText(c.getNoCliente());
                 jTextField2.setText(c.getNombre());
@@ -442,14 +481,14 @@ public class Bancario extends javax.swing.JFrame {
                 jTextField4.setText(Utilerias.convierteFecha(c.getFechaNac()));
                 jTextField5.setText(c.getGenero() + "");            
             }            
-            pointer++;
+        //   pointer++;
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if(pointer > 0){
-            Cliente c = lista.get(pointer);
+            Cliente c = lista.get(--pointer);
             if (c != null) {
                 jTextField1.setText(c.getNoCliente());
                 jTextField2.setText(c.getNombre());
@@ -457,10 +496,32 @@ public class Bancario extends javax.swing.JFrame {
                 jTextField4.setText(Utilerias.convierteFecha(c.getFechaNac()));
                 jTextField5.setText(c.getGenero() + "");            
             }            
-            pointer--;            
+            //pointer--;            
         }        
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       if(!lista.isEmpty())
+            lista.remove(pointer);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+        if(jFileChooser1.APPROVE_OPTION == jFileChooser1.showSaveDialog(jPanel1)){
+            File arch = jFileChooser1.getSelectedFile();
+            String ruta = arch.getAbsolutePath();
+            String datos = "";
+            for(Cliente o : lista){
+                datos = datos + o.getNoCliente() + ", " 
+                              + o.getNombre() + ", "
+                              + o.getApellidos() + ", "
+                              + Utilerias.convierteFecha(o.getFechaNac()) + ", "
+                              + o.getGenero() + "\n";
+                        
+            }
+            Utilerias.guardaArchivoTexto(datos, ruta);
+        }
+    }//GEN-LAST:event_saveMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -514,6 +575,7 @@ public class Bancario extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -524,7 +586,9 @@ public class Bancario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
