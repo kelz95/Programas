@@ -75,8 +75,8 @@ public class PrestamosBD extends Thread implements Almacenamiento  {
     
     public boolean agregar(String nocl, int id, String fc, float mon, 
             String fechaVig){
-        String sent = "insert into prestamo(id_prestamo, fecha_contrata,"
-                + " monto, vigencia, nocliente ) values("
+        String sent = "insert into prestamo(idPrestamo, fechaContrata,"
+                + " monto, vigencia, idcliente ) values("
         + id + ",\'" + fc + "\', " + mon + ", \'" + 
         fechaVig + "\', \'" + nocl + "\')";
         if(bd.actualiza(sent) >= 0){
@@ -87,7 +87,7 @@ public class PrestamosBD extends Thread implements Almacenamiento  {
 
     @Override
     public boolean elimina(int index) {
-        String sent = "delete from prestamo where id_prestamo = " + index;
+        String sent = "delete from prestamo where idPrestamo = " + index;
         if(bd.actualiza(sent) > 0){
             return true;
         }
@@ -102,7 +102,7 @@ public class PrestamosBD extends Thread implements Almacenamiento  {
 
     @Override
     public Object busqueda(int index) {
-        String sent = "select * from prestamo where id_prestamo = " + index;
+        String sent = "select * from prestamo where idPrestamo = " + index;
         return bd.salidaCSV(bd.consulta(sent));
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -124,9 +124,9 @@ public class PrestamosBD extends Thread implements Almacenamiento  {
     
     public boolean modifica(String nocl, int id, String fc, float mon, 
             String fechaVig){
-        String sent = "update prestamo set fecha_contrata = \'" + fc
+        String sent = "update prestamo set fechaContrata = \'" + fc
                 + "\', monto = " + mon + ", vigencia = \'" + fechaVig +
-                "\' where nocliente = " + nocl;
+                "\' where idcliente = " + nocl;
         return bd.actualiza(sent) > 0;
     }
 
@@ -149,13 +149,13 @@ public class PrestamosBD extends Thread implements Almacenamiento  {
     @Override
     public String listado() {
         String sent = "select * from prestamo, cliente "
-                + "where cliente.nocliente = prestamo.nocliente";
+                + "where cliente.nocliente = prestamo.idcliente";
         return bd.salidaCSV(bd.consulta(sent));
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public Object[][] matriz() {
-        String sent = "select nocliente, id_prestamo, fecha_contrata,monto,vigencia from prestamo";
+        String sent = "select idcliente, idPrestamo, fechaContrata,monto,vigencia from prestamo";
         ResultSet p = bd.consulta(sent);
         Object[] ren = new Object[5];
         Object[][] sal = new Object[5][100];

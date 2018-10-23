@@ -42,7 +42,7 @@ public class Utilerias {
         int anio = Integer.parseInt(datos[0]);
         int mes = Integer.parseInt(datos[1]);
         int dia = Integer.parseInt(datos[2]);                
-        return new GregorianCalendar(anio, mes-1, dia);
+        return new GregorianCalendar(dia, mes-1, anio);
     }
     
     public static String leeArchivoTexto(String arch){
@@ -93,12 +93,5 @@ public class Utilerias {
             }
         }
     }
-    
-    
-    
-            
-            
-            
-            
             
 }

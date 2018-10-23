@@ -6,7 +6,13 @@
 package escom.ipn;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.function.UnaryOperator;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,10 +21,10 @@ import javax.swing.table.DefaultTableModel;
  * @author alumno
  */
 public class Bancario extends javax.swing.JFrame {
-    private ArrayList<Cliente> lista = new ArrayList<>();
+    private List<Cliente> lista = new ArrayList<>();
     private int pointer = 0;
     private DefaultTableModel modelo = null;
-    private PrestamosBD bd = new PrestamosBD("jdbc:mysql://localhost:3307/bancario?zeroDateTimeBehavior=convertToNull","root","root");
+    private PrestamosBD bd = new PrestamosBD("jdbc:mysql://localhost:3306/bancario?zeroDateTimeBehavior=convertToNull","root","");
     /**
      * Creates new form Bancario
      */
@@ -57,6 +63,7 @@ public class Bancario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -136,7 +143,7 @@ public class Bancario extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -186,6 +193,13 @@ public class Bancario extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setText("Modificar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -193,10 +207,13 @@ public class Bancario extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                    .addComponent(jButton8)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -211,7 +228,9 @@ public class Bancario extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jButton3)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton8)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Navegacion"));
@@ -323,6 +342,11 @@ public class Bancario extends javax.swing.JFrame {
 
         openMenuItem.setMnemonic('o');
         openMenuItem.setText("Open");
+        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setMnemonic('s');
@@ -412,36 +436,79 @@ public class Bancario extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        String id = jTextField1.getText();
-        String nom = jTextField2.getText();
-        String apell = jTextField3.getText();
-        String fechaN = jTextField4.getText();
-        String genero = jTextField5.getText().toUpperCase();
-        Cliente cl = new Cliente(id, nom, apell, 
-        Utilerias.convierteString(fechaN), genero.charAt(0));
-        lista.add(cl);
-        JOptionPane.showMessageDialog(null, 
-        "Cliente agregado", "Agregar", JOptionPane.INFORMATION_MESSAGE);
-        jButton1.setEnabled(true);
-        jButton3.setEnabled(false);
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextField5.setText("");
+        if(jTextField1.isEnabled()){
+            String id = jTextField1.getText();
+            String nom = jTextField2.getText();
+            String apell = jTextField3.getText();
+            String fechaN = jTextField4.getText();
+            String genero = jTextField5.getText().toUpperCase();
+            int existe = 0;
+            Cliente cl = new Cliente(id, nom, apell, Utilerias.convierteString(fechaN), genero.charAt(0));
+            if(!lista.isEmpty()){
+                for(Cliente c : lista){
+                    if(c.getNoCliente().equals(id)) existe = existe + 1;                    
+                }
+                if(existe > 0){
+                    JOptionPane.showMessageDialog(null, "Id de cliente repetido, favor de cambiarlo", "Aceptar", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    lista.add(cl);
+                    JOptionPane.showMessageDialog(null, "Cliente agregado", "Agregar", JOptionPane.INFORMATION_MESSAGE);     
+                    jButton1.setEnabled(true);
+                    jButton3.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    deshabilita(false);
+                }                   
+            }else{
+                lista.add(cl);
+                JOptionPane.showMessageDialog(null, "Cliente agregado", "Agregar", JOptionPane.INFORMATION_MESSAGE);     
+                jButton1.setEnabled(true);
+                jButton3.setEnabled(false); 
+                jTextField1.setEnabled(false);
+                deshabilita(false);
+            }
+        }else{
+            String id = jTextField1.getText();
+            String nom = jTextField2.getText();
+            String apell = jTextField3.getText();
+            String fechaN = jTextField4.getText();
+            String genero = jTextField5.getText().toUpperCase();
+            int indice = 0;          
+            for(Cliente c : lista){
+                if(c.getNoCliente().equals(id)) {
+                    indice = lista.indexOf(c);
+                    
+                }
+            }
+//            System.out.println("antes remove " +lista.size());
+//            lista.remove(indice);
+            System.out.println("despues remove " +lista.size());
+            Cliente client = new Cliente(id, nom, apell, Utilerias.convierteString(fechaN), genero.charAt(0));
+            //lista.add(client);
+            lista.set(indice, client);
+            System.out.println("despues add " + lista.size());
+            JOptionPane.showMessageDialog(null, "Cliente modificado", "Aceptar", JOptionPane.INFORMATION_MESSAGE);     
+            Cliente c = lista.get(lista.indexOf(client));
+            if (c != null) {
+                jTextField1.setText(c.getNoCliente());
+                jTextField2.setText(c.getNombre());
+                jTextField3.setText(c.getApellidos());
+                jTextField4.setText(Utilerias.convierteFecha(c.getFechaNac()));
+                jTextField5.setText(c.getGenero() + "");            
+            }
+            jButton1.setEnabled(true);
+            jButton3.setEnabled(false); 
+            deshabilita(false);
+        }
+            
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         deshabilita(true);
+        jTextField1.setEnabled(true);
+        limpia_campos();
         jButton1.setEnabled(false);
         jButton3.setEnabled(true);
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextField5.setText("");
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -472,7 +539,7 @@ public class Bancario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(pointer < lista.size()){
+        if(pointer < lista.size()){           
             Cliente c = lista.get(pointer++);
             if (c != null) {
                 jTextField1.setText(c.getNoCliente());
@@ -502,12 +569,33 @@ public class Bancario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       if(!lista.isEmpty())
+       if(!lista.isEmpty()){
             lista.remove(pointer);
+            Cliente c = null;
+            if(pointer < lista.size()){
+                c = lista.get(pointer++);
+                if (c != null) {
+                    jTextField1.setText(c.getNoCliente());
+                    jTextField2.setText(c.getNombre());
+                    jTextField3.setText(c.getApellidos());
+                    jTextField4.setText(Utilerias.convierteFecha(c.getFechaNac()));
+                    jTextField5.setText(c.getGenero() + "");            
+                }
+            }else if(pointer > 0){
+                c = lista.get(pointer--);
+                if (c != null) {
+                    jTextField1.setText(c.getNoCliente());
+                    jTextField2.setText(c.getNombre());
+                    jTextField3.setText(c.getApellidos());
+                    jTextField4.setText(Utilerias.convierteFecha(c.getFechaNac()));
+                    jTextField5.setText(c.getGenero() + "");            
+                }   
+            }
+       }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        if(jFileChooser1.APPROVE_OPTION == jFileChooser1.showSaveDialog(jPanel1)){
+        if(JFileChooser.APPROVE_OPTION == jFileChooser1.showSaveDialog(jPanel1)){
             File arch = jFileChooser1.getSelectedFile();
             String ruta = arch.getAbsolutePath();
             String datos = "";
@@ -522,6 +610,52 @@ public class Bancario extends javax.swing.JFrame {
             Utilerias.guardaArchivoTexto(datos, ruta);
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        if(!lista.isEmpty()){
+            deshabilita(true);                     
+            jButton1.setEnabled(true);
+            jButton3.setEnabled(true);   
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+        if(!lista.isEmpty()){
+            lista.clear();
+        }
+        if(JFileChooser.APPROVE_OPTION == jFileChooser1.showOpenDialog(jPanel1)){
+            jFileChooser1.setFileSelectionMode(JFileChooser.FILES_ONLY);    
+            File arch = jFileChooser1.getSelectedFile();
+            if(arch != null || !arch.getName().equals("")){
+                String ruta = arch.getAbsolutePath();
+                System.out.println("ruta -> " + ruta);
+                String datos = Utilerias.leeArchivoTexto(ruta);
+                String [] lineas = datos.split("\n");
+                System.out.println(Arrays.toString(lineas));
+                for (String linea : lineas) {
+                    String[] campos = linea.split(",");
+                    System.out.println(Arrays.toString(campos));                   
+                    Cliente o = new Cliente(campos[0].trim(), campos[1].trim(), campos[2].trim(), Utilerias.convierteString(campos[3].trim()), campos[4].trim().charAt(0));
+                    lista.add(o);
+                }
+                Cliente c = lista.get(0);
+                pointer = 0;
+                if (c != null) {
+                    jTextField1.setText(c.getNoCliente());
+                    jTextField2.setText(c.getNombre());
+                    jTextField3.setText(c.getApellidos());
+                    jTextField4.setText(Utilerias.convierteFecha(c.getFechaNac()));
+                    jTextField5.setText(c.getGenero() + "");            
+                }
+
+            }else{
+                JOptionPane.showMessageDialog(null, "Elija un archivo valido", "Aceptar", JOptionPane.INFORMATION_MESSAGE);     
+
+            }
+        }
+  
+    }//GEN-LAST:event_openMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -575,6 +709,7 @@ public class Bancario extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -602,11 +737,18 @@ public class Bancario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void deshabilita(boolean opc) {
-        jTextField1.setEnabled(opc);
         jTextField2.setEnabled(opc);
         jTextField3.setEnabled(opc);
         jTextField4.setEnabled(opc);
         jTextField5.setEnabled(opc);        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    private void limpia_campos() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

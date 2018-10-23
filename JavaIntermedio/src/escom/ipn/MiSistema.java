@@ -42,9 +42,9 @@ public class MiSistema {
 //        Prestamo pr3 = new Prestamo(cal, 3, 9000F, cal);
 //        Prestamo pr4 = new Prestamo(cal, 4, 2000F, cal);
       //  Prestamos prs = PrestamosFactory.createPrestamos();
-        String url = "jdbc:mysql://localhost:3307/bancario?zeroDateTimeBehavior=convertToNull";
+        String url = "jdbc:mysql://localhost:3306/bancario?zeroDateTimeBehavior=convertToNull";
         String user = "root";
-        String password = "root";        
+        String password = "";        
         
         PrestamosBD pr2 = PrestamosFactory.createPrestamosBD(url, user, password);
         pr2.agregar("1111", 40, "2017-3-5", 3000.00F, "2016-7-9");
@@ -127,7 +127,7 @@ public class MiSistema {
  
         PrestamosBD [] prest = new PrestamosBD[7];
         for(int i = 0; i < 7; i++){
-            prest[i] = new PrestamosBD("jdbc:mysql://localhost:3307/bancario?zeroDateTimeBehavior=convertToNull","root","root");
+            prest[i] = new PrestamosBD("jdbc:mysql://localhost:3306/bancario?zeroDateTimeBehavior=convertToNull","root","");
             prest[i].start();
             if(i == 2){
                 prest[i].interrupt();
